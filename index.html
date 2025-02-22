@@ -8,52 +8,60 @@
     <style>
         body {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            background-color: rgba(128, 128, 128, 0.728);
-            margin: 50px;
-            position: relative;
+            background-color: rgba(18, 25, 245, 0.804);
+            margin: 20px;
             display: flex;
-            justify-content: center;
-            margin-top: 150px;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
+            width: 100%;
             max-width: 400px;
             padding: 20px;
+            margin-top: 100px;
             text-align: center;
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            background-color: #9e9e9e;
-            margin-right: 20px;
-        }
-
-        input,
-        button {
-            margin: 5px;
-            padding: 10px;
-            width: 80%;
+            background-color: #a3fcff;
+            margin-bottom: 20px;
         }
 
         .pop-container {
             max-width: 400px;
             padding: 20px;
+            margin-top: 100px;
+            text-align: center;
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            background-color: #9e9e9e;
+            background-color: #a3fcff;
+            margin-bottom: 20px;
+        }
+
+        input,
+        button {
+            margin: 5px 0;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            overflow-x: auto;
+            display: block;
         }
 
         th,
         td {
-            border: 1px solid#8d8d8d;
+            border: 1px solid #8d8d8d;
             padding: 8px;
             text-align: left;
+            white-space: nowrap;
         }
 
         th {
@@ -62,6 +70,24 @@
 
         .total-row {
             font-weight: bold;
+        }
+
+        @media (min-width: 600px) {
+            body {
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-start;
+            }
+
+            .container,
+            .pop-container {
+                margin-right: 20px;
+                margin-bottom: 0;
+            }
+
+            .container:last-child {
+                margin-right: 0;
+            }
         }
     </style>
 </head>
@@ -90,7 +116,8 @@
                     <th>Total</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="receiptBody">
+            </tbody>
             <tfoot>
                 <tr class="total-row">
                     <td colspan="4">Total Amount:</td>
@@ -98,6 +125,7 @@
                 </tr>
             </tfoot>
         </table>
+        <button id="clearReceiptBtn" onclick="clearReceipt()">Clear Receipt</button>
     </div>
     <script>
         let items = [];
@@ -141,6 +169,10 @@
             document.getElementById('itemName').value = '';
             document.getElementById('price').value = '';
             document.getElementById('quantity').value = 1;
+        }
+        function clearReceipt() {
+            document.getElementById("receiptBody").innerHTML = ""; // Clear all items
+            document.getElementById("totalAmount").textContent = "₹0.00"; // Reset total
         }
     </script>
 </body>
